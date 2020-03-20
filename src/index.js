@@ -4,11 +4,17 @@ var canvasTxt = {
   textSize: 14,
   font: "Arial",
   lineHeight: null,
+  fillStyle: "black",
+  strokeStyle: null,
+  lineWidth: 1,
   drawText: function(ctx, mytext, x, y, width, height) {
     const loc = [x, y, width, height];
 
     const style = this.textSize + "px " + this.font;
     ctx.font = style;
+    ctx.fillStyle = this.fillStyle;
+    ctx.strokeStyle = this.strokeStyle;
+    ctx.lineWidth = this.lineWidth;
 
     let txty =
       parseInt(loc[1]) + parseInt(loc[3]) / 2 + parseInt(this.textSize) / 2;
@@ -81,6 +87,9 @@ var canvasTxt = {
     //print all lines of text
     textarray.forEach(txtline => {
       ctx.fillText(txtline, textanchor, txty);
+      if (this.strokeStyle && this.lineWidth > 0) {
+        ctx.strokeText(txtline, textanchor, txty);
+      }
       txty += charHeight;
     });
 
